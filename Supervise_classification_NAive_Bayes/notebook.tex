@@ -1,0 +1,708 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Supervised\_classification}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Gaussian NB}\label{gaussian-nb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+ch}{\PYZsh{}!/usr/bin/python}
+        \PY{c+c1}{\PYZsh{}    Naive Bayes classifier to classify the terrain data}
+        
+        \PY{k+kn}{from} \PY{n+nn}{prep\PYZus{}terrain\PYZus{}data} \PY{k}{import} \PY{n}{makeTerrainData}
+        \PY{k+kn}{from} \PY{n+nn}{class\PYZus{}vis} \PY{k}{import} \PY{n}{prettyPicture}\PY{p}{,} \PY{n}{output\PYZus{}image}
+        \PY{c+c1}{\PYZsh{}from ClassNB import classify}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pylab} \PY{k}{as} \PY{n+nn}{pl}
+        
+        \PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{features\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test} \PY{o}{=} \PY{n}{makeTerrainData}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} the training data (features\PYZus{}train, labels\PYZus{}train) have both \PYZdq{}fast\PYZdq{} and \PYZdq{}slow\PYZdq{} points mixed}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} in together\PYZhy{}\PYZhy{}separate them so we can give them different colors in the scatterplot,}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} and visually identify them}
+        \PY{n}{grade\PYZus{}fast} \PY{o}{=} \PY{p}{[}\PY{n}{features\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{labels\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{bumpy\PYZus{}fast} \PY{o}{=} \PY{p}{[}\PY{n}{features\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{labels\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{grade\PYZus{}slow} \PY{o}{=} \PY{p}{[}\PY{n}{features\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{labels\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{bumpy\PYZus{}slow} \PY{o}{=} \PY{p}{[}\PY{n}{features\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{labels\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} the clasification metod}
+        \PY{k}{def} \PY{n+nf}{classify}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{)}\PY{p}{:}   
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} import the sklearn module for GaussianNB}
+            \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} create classifier}
+            \PY{k}{global} \PY{n}{classy}
+            \PY{n}{classy} \PY{o}{=} \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} fit the classifier on the training features and labels}
+            \PY{n}{train} \PY{o}{=} \PY{n}{classy}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} return the fit classifier}
+            \PY{k}{return} \PY{n}{train}
+        \PY{n}{cnb} \PY{o}{=} \PY{n}{classify}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} draw the decision boundary with the text points overlaid}
+        \PY{n}{prettyPicture}\PY{p}{(}\PY{n}{cnb}\PY{p}{,} \PY{n}{features\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{)}
+        \PY{n}{output\PYZus{}image}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-8-e1a0e7d33492> in <module>()
+         34 \# draw the decision boundary with the text points overlaid
+         35 prettyPicture(cnb, features\_test, labels\_test)
+    ---> 36 output\_image("test.png", "png", open("test.png", "rb").read())
+    
+
+        \textasciitilde{}/Documents/python\_courses/Intro\_Machine\_Learning/Miscellaneous\_in\_data\_science/Supervise\_classification\_NAive\_Bayes/class\_vis.py in output\_image(name, format, bytes)
+         58     data['format'] = format
+         59     data['bytes'] = base64.encodestring(bytes)
+    ---> 60     print (image\_start+json.dumps(data)+image\_end)
+    
+
+        \textasciitilde{}/anaconda3/lib/python3.6/json/\_\_init\_\_.py in dumps(obj, skipkeys, ensure\_ascii, check\_circular, allow\_nan, cls, indent, separators, default, sort\_keys, **kw)
+        229         cls is None and indent is None and separators is None and
+        230         default is None and not sort\_keys and not kw):
+    --> 231         return \_default\_encoder.encode(obj)
+        232     if cls is None:
+        233         cls = JSONEncoder
+
+
+        \textasciitilde{}/anaconda3/lib/python3.6/json/encoder.py in encode(self, o)
+        197         \# exceptions aren't as detailed.  The list call should be roughly
+        198         \# equivalent to the PySequence\_Fast that ''.join() would do.
+    --> 199         chunks = self.iterencode(o, \_one\_shot=True)
+        200         if not isinstance(chunks, (list, tuple)):
+        201             chunks = list(chunks)
+
+
+        \textasciitilde{}/anaconda3/lib/python3.6/json/encoder.py in iterencode(self, o, \_one\_shot)
+        255                 self.key\_separator, self.item\_separator, self.sort\_keys,
+        256                 self.skipkeys, \_one\_shot)
+    --> 257         return \_iterencode(o, 0)
+        258 
+        259 def \_make\_iterencode(markers, \_default, \_encoder, \_indent, \_floatstr,
+
+
+        \textasciitilde{}/anaconda3/lib/python3.6/json/encoder.py in default(self, o)
+        178         """
+        179         raise TypeError("Object of type '\%s' is not JSON serializable" \%
+    --> 180                         o.\_\_class\_\_.\_\_name\_\_)
+        181 
+        182     def encode(self, o):
+
+
+        TypeError: Object of type 'bytes' is not JSON serializable
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+        \PY{n}{clf} \PY{o}{=} \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}
+        \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+        \PY{n}{GaussianNB}\PY{p}{(}\PY{n}{priors}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}clf\PYZus{}pf = GaussianNB()}
+        \PY{c+c1}{\PYZsh{}clf\PYZus{}pf.partial\PYZus{}fit(X, Y, np.unique(Y))}
+        \PY{c+c1}{\PYZsh{}GaussianNB(priors=None)}
+        \PY{c+c1}{\PYZsh{}print(clf\PYZus{}pf.predict([[\PYZhy{}0.8, \PYZhy{}1]]))}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([1, 2, 2, 1])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} prep\PYZus{}terrain\PYZus{}data.py\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}!/usr/bin/python}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         
+         
+         \PY{k}{def} \PY{n+nf}{makeTerrainData}\PY{p}{(}\PY{n}{n\PYZus{}points}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} make the toy dataset}
+             \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+             \PY{n}{grade} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n\PYZus{}points}\PY{p}{)}\PY{p}{]}
+             \PY{n}{bumpy} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n\PYZus{}points}\PY{p}{)}\PY{p}{]}
+             \PY{n}{error} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n\PYZus{}points}\PY{p}{)}\PY{p}{]}
+             \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{grade}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{*}\PY{n}{bumpy}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{+}\PY{l+m+mf}{0.3}\PY{o}{+}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{error}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n\PYZus{}points}\PY{p}{)}\PY{p}{]}
+             \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{grade}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.8} \PY{o+ow}{or} \PY{n}{bumpy}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.8}\PY{p}{:}
+                     \PY{n}{y}\PY{p}{[}\PY{n}{ii}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.0}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} split into train/test sets}
+             \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{gg}\PY{p}{,} \PY{n}{ss}\PY{p}{]} \PY{k}{for} \PY{n}{gg}\PY{p}{,} \PY{n}{ss} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{grade}\PY{p}{,} \PY{n}{bumpy}\PY{p}{)}\PY{p}{]}
+             \PY{n}{split} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{0.75}\PY{o}{*}\PY{n}{n\PYZus{}points}\PY{p}{)}
+             \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{split}\PY{p}{]}
+             \PY{n}{X\PYZus{}test}  \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{split}\PY{p}{:}\PY{p}{]}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{split}\PY{p}{]}
+             \PY{n}{y\PYZus{}test}  \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{n}{split}\PY{p}{:}\PY{p}{]}
+         
+             \PY{n}{grade\PYZus{}sig} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{bumpy\PYZus{}sig} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{grade\PYZus{}bkg} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{bumpy\PYZus{}bkg} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}    training\PYZus{}data = \PYZob{}\PYZdq{}fast\PYZdq{}:\PYZob{}\PYZdq{}grade\PYZdq{}:grade\PYZus{}sig, \PYZdq{}bumpiness\PYZdq{}:bumpy\PYZus{}sig\PYZcb{}}
+         \PY{c+c1}{\PYZsh{}            , \PYZdq{}slow\PYZdq{}:\PYZob{}\PYZdq{}grade\PYZdq{}:grade\PYZus{}bkg, \PYZdq{}bumpiness\PYZdq{}:bumpy\PYZus{}bkg\PYZcb{}\PYZcb{}}
+         
+         
+             \PY{n}{grade\PYZus{}sig} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{bumpy\PYZus{}sig} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{grade\PYZus{}bkg} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{bumpy\PYZus{}bkg} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+         
+             \PY{n}{test\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fast}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grade}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{grade\PYZus{}sig}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bumpiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{bumpy\PYZus{}sig}\PY{p}{\PYZcb{}}
+                     \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{slow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grade}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{grade\PYZus{}bkg}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bumpiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{bumpy\PYZus{}bkg}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}
+         
+             \PY{k}{return} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}
+         \PY{c+c1}{\PYZsh{}    return training\PYZus{}data, test\PYZus{}data}
+         \PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{features\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test} \PY{o}{=} \PY{n}{makeTerrainData}\PY{p}{(}\PY{p}{)}
+         \PY{n}{features\PYZus{}test}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} [[0.3232737862759947, 0.3250495344260548],
+          [0.9701847268085771, 0.6622267997143491],
+          [0.40417505700074563, 0.5254771514000354],
+          [0.5145962523291051, 0.31375259873781713],
+          [0.9881192147817541, 0.17318242385732774],
+          [0.657660386483129, 0.9121241609240104],
+          [0.542593594357195, 0.34232701768184615],
+          [0.4132475707993215, 0.3542869886448128],
+          [0.18758254139452712, 0.7719897841487408],
+          [0.36177935915167525, 0.7209245613272927],
+          [0.7564431540555737, 0.6433090999994615],
+          [0.625408742145009, 0.6933133100298209],
+          [0.759990536061017, 0.6100765800787515],
+          [0.20355823835027387, 0.1922641691367134],
+          [0.5492196390853317, 0.24651913552736038],
+          [0.9276727608444477, 0.5580866508074042],
+          [0.43811609507237825, 0.2248670379928167],
+          [0.6982500291221723, 0.972910627590569],
+          [0.12142608336261984, 0.2976145652769079],
+          [0.9731468158216944, 0.28900413740352493],
+          [0.6088716670819649, 0.20727779485464026],
+          [0.23929746232765037, 0.7049882597401967],
+          [0.1583781638052324, 0.31704074501844803],
+          [0.55083900700267, 0.3488031742013066],
+          [0.552251409053733, 0.9337003747708006],
+          [0.09320920128152255, 0.7954053560023335],
+          [0.9922571393952196, 0.27345753675542306],
+          [0.912929878484168, 0.12187410573271507],
+          [0.4614478941787834, 0.6766222457825457],
+          [0.11746614908955755, 0.3796941853743825],
+          [0.8321431737689012, 0.9801605373213622],
+          [0.49837550470719527, 0.8183774601305623],
+          [0.7166033259917911, 0.9546088633914613],
+          [0.5088720150695117, 0.8046158339565703],
+          [0.2734248967132742, 0.2904526519929356],
+          [0.8347239455766944, 0.2876303416141399],
+          [0.9802446326033755, 0.7141412874983953],
+          [0.24373090607513836, 0.3463635140956165],
+          [0.5512650768804697, 0.4423761118648354],
+          [0.3835860132471499, 0.2564439754734821],
+          [0.9218681499315619, 0.4790792630164832],
+          [0.508240891592894, 0.20206800720059648],
+          [0.8793262551464761, 0.5385779237086528],
+          [0.8640269344285881, 0.9330239337833077],
+          [0.27624740282204097, 0.6961713006468226],
+          [0.7900061820031135, 0.13727295480092294],
+          [0.41494242355134514, 0.6156770344144923],
+          [0.9342483936825201, 0.5868304985708152],
+          [0.5077376758096565, 0.2424580384102868],
+          [0.8205494731855784, 0.669833964893104],
+          [0.28283898328282664, 0.5310414897327992],
+          [0.2985558497717672, 0.6379445734086376],
+          [0.5869377224141611, 0.05249110683946279],
+          [0.9989023332293387, 0.4133013660482586],
+          [0.489640346655701, 0.7173580562502436],
+          [0.1485954183827891, 0.1005449047773479],
+          [0.5385805777038737, 0.7707660580982791],
+          [0.34512394169300753, 0.00518144640713003],
+          [0.551917417070811, 0.5503525657796167],
+          [0.543430062958673, 0.9290996801699778],
+          [0.4553446168665011, 0.40690745154688346],
+          [0.3217773502290374, 0.9350320985961516],
+          [0.18865237370710541, 0.8783996215142282],
+          [0.6974984276205713, 0.4774485204408965],
+          [0.5717976419849011, 0.19945597466760168],
+          [0.2335624460578931, 0.9639140388909357],
+          [0.7755444750992588, 0.3211677021191667],
+          [0.04364729909730192, 0.6458979178902698],
+          [0.7447051515651959, 0.9079369587356224],
+          [0.7052278810250026, 0.08946072051151632],
+          [0.8114089025648769, 0.5741333531753733],
+          [0.38607875249098234, 0.5351522768936047],
+          [0.6636888294845347, 0.7231176782424233],
+          [0.820747551709555, 0.936669379750626],
+          [0.9808181386597851, 0.9132297256698525],
+          [0.49532864961642353, 0.1750647754809631],
+          [0.03701961134557619, 0.8822449731648332],
+          [0.5022911501329659, 0.17578870753886255],
+          [0.590180429309567, 0.919634811850934],
+          [0.8697003133622154, 0.99717180308851],
+          [0.8741903740543083, 0.39699457427829965],
+          [0.44030620977067714, 0.4953838973217578],
+          [0.5259510868075614, 0.9366087447777628],
+          [0.4569280744742422, 0.9621313800833424],
+          [0.7224438275706426, 0.926039697896443],
+          [0.4099786197463644, 0.8767431679179234],
+          [0.6547813264277338, 0.009267168480099786],
+          [0.15436121877154885, 0.5679618686644954],
+          [0.46949060098473194, 0.10730069077353799],
+          [0.9692036305742172, 0.9829938883710064],
+          [0.3385612340514317, 0.28456165235004627],
+          [0.692704598586882, 0.9890994700887233],
+          [0.6498366525792726, 0.5433004835569749],
+          [0.8517652923506914, 0.49391242034181915],
+          [0.8523413365658931, 0.9385605017408724],
+          [0.8593421841682666, 0.8510597385779967],
+          [0.38000939752265506, 0.4680207690062901],
+          [0.31666115393339966, 0.19281139827380978],
+          [0.718717425222983, 0.11264676102015447],
+          [0.7594018093343636, 0.16249426253973864],
+          [0.8723830173985363, 0.45891447103236116],
+          [0.03589909983768658, 0.2572648802295191],
+          [0.06842074718155144, 0.18619906912806772],
+          [0.6311610168546405, 0.736617895492257],
+          [0.9209290987802967, 0.7907676644252557],
+          [0.9974259229562153, 0.5677812224209393],
+          [0.746766366737927, 0.7572827502575612],
+          [0.4339714719231257, 0.17549491383846472],
+          [0.09844312638319797, 0.8561465042734577],
+          [0.6337478287807913, 0.8970427617839751],
+          [0.8725792326070907, 0.8269898252763096],
+          [0.4436785516617058, 0.5152806589597959],
+          [0.6940011627932345, 0.0867377698483559],
+          [0.903424062050486, 0.6692558534099542],
+          [0.04599096867721275, 0.18478120104733997],
+          [0.7961434651622118, 0.14061187563429844],
+          [0.2933677759652088, 0.3236016700850828],
+          [0.37484108977531483, 0.248047083667145],
+          [0.14556979569939843, 0.26078527706544385],
+          [0.53116631814876, 0.2355212528015339],
+          [0.5659280619159368, 0.753756651781457],
+          [0.7925194738809532, 0.9540348226549126],
+          [0.16998364906809738, 0.3019458396916147],
+          [0.07896835065999463, 0.7228825284009974],
+          [0.8708395986448548, 0.01143573419416799],
+          [0.6197103685374153, 0.6536833670701987],
+          [0.24082979185631304, 0.6927685904227389],
+          [0.9128290160235548, 0.062124331800536114],
+          [0.14311772012850965, 0.11822484780397258],
+          [0.46114991335499755, 0.3068063420036198],
+          [0.2539773394135423, 0.40541661296839726],
+          [0.25532670815915404, 0.5025204712383896],
+          [0.009397431454871041, 0.8951183698162541],
+          [0.8046330769751463, 0.703557035102256],
+          [0.901209423598883, 0.3109779483846603],
+          [0.6776108856990795, 0.11741574584477632],
+          [0.15797562207178695, 0.9161303858506353],
+          [0.44172978360381443, 0.2950376001562468],
+          [0.3455656244430817, 0.614625448143849],
+          [0.5875717051264214, 0.21912860093534392],
+          [0.6389387023600122, 0.13356878219680413],
+          [0.4243089384608977, 0.1531855646891792],
+          [0.25009822440770124, 0.7477348371508565],
+          [0.8453039251425987, 0.6057389480890694],
+          [0.19921699910889235, 0.41584561543122467],
+          [0.38469324896734547, 0.5492345088183648],
+          [0.4832080610592161, 0.4708280768793115],
+          [0.23720570192757462, 0.5375176876932009],
+          [0.5719226923507389, 0.6640944393396638],
+          [0.5748119301786451, 0.21841162265732594],
+          [0.9926920436268976, 0.24746542930857773],
+          [0.29523075388326936, 0.7547395497248653],
+          [0.9779444845768627, 0.8731350584877333],
+          [0.6582298159286807, 0.08187030647327487],
+          [0.27448038017822773, 0.4467479774964833],
+          [0.565929016955699, 0.7037661251558726],
+          [0.6857994927340121, 0.07810272214744018],
+          [0.7446688411653252, 0.5641687222734748],
+          [0.04904425077599994, 0.06175804755668379],
+          [0.6064064930764745, 0.5476492487109315],
+          [0.4967272865238703, 0.5054870560925958],
+          [0.9041552908937254, 0.5727016742278647],
+          [0.28619415145919447, 0.1498523813824143],
+          [0.7988601195075987, 0.3281176377422065],
+          [0.607064998164266, 0.520341541184787],
+          [0.35232095583531653, 0.11624002218466423],
+          [0.6366178780058919, 0.20540148553936155],
+          [0.6208911631303041, 0.5831476784410176],
+          [0.6777644586233594, 0.09094164445168784],
+          [0.720928376670709, 0.5103753540328345],
+          [0.6591815403167537, 0.8086920831772372],
+          [0.8383371169625166, 0.453432300179782],
+          [0.6282481036868983, 0.5132478432016415],
+          [0.9034037040729679, 0.45679847571187604],
+          [0.6463406088905228, 0.05773678093252477],
+          [0.3089328839526361, 0.4623783057389237],
+          [0.4408231901628116, 0.8069153525543925],
+          [0.5795738053684028, 0.7232800798250023],
+          [0.7323597679392383, 0.3959487099532575],
+          [0.09013337574621894, 0.8164532259331305],
+          [0.2951104516291553, 0.7458044828318157],
+          [0.7474808649383715, 0.5783112650590354],
+          [0.17564007044430663, 0.04528980272782879],
+          [0.13215979774678355, 0.34452886656213455],
+          [0.5394077589844211, 0.0637599121120832],
+          [0.9714895812113399, 0.9941236604769201],
+          [0.530852373702785, 0.9345827988849464],
+          [0.9134869744816969, 0.0690191461603138],
+          [0.8304726195673974, 0.9337755625849307],
+          [0.2569700845632623, 0.031734871023079037],
+          [0.8246898125424073, 0.40886693581924827],
+          [0.4818478298737412, 0.7689720625834827],
+          [0.8064884937937665, 0.7658276829237117],
+          [0.746559350717045, 0.978333284924101],
+          [0.3387152538018863, 0.6458808180971635],
+          [0.1151697074497594, 0.42036193888232787],
+          [0.9628932928688776, 0.9928565985808789],
+          [0.14075701500588267, 0.38247961885137205],
+          [0.9665002094627521, 0.8696202853107085],
+          [0.8601405968988218, 0.9067673115245726],
+          [0.7242167120755182, 0.3756455338019876],
+          [0.9799422427819034, 0.6827303541015414],
+          [0.9672697473000323, 0.6617925381254681],
+          [0.8045876440205619, 0.5393002639188602],
+          [0.3657750494055664, 0.653534098418702],
+          [0.7906819685889375, 0.34776988713915025],
+          [0.013918655100901178, 0.17847362900411168],
+          [0.5365723082690591, 0.5372584863980012],
+          [0.45478602773387466, 0.5288425395440093],
+          [0.6728283818737536, 0.7278581409061281],
+          [0.6723407973510132, 0.22269021596626648],
+          [0.584560091652166, 0.003473294944907779],
+          [0.8224173012267743, 0.022735327321966592],
+          [0.9402918917795542, 0.29836298870298184],
+          [0.10834610219923069, 0.6734998577765671],
+          [0.23382190221158317, 0.5444453390250208],
+          [0.025024649646482322, 0.5319336084967587],
+          [0.8842348452148522, 0.8233604373757843],
+          [0.5614073822498789, 0.24751203850377557],
+          [0.9152559087431594, 0.34615973498762675],
+          [0.22136720007399002, 0.2756497277951273],
+          [0.06321704116019544, 0.9374103611350668],
+          [0.8238553513904476, 0.7250239459089184],
+          [0.909387638427892, 0.11284463876647732],
+          [0.30219017452925023, 0.8094781835391944],
+          [0.4082958557954127, 0.4192405984917521],
+          [0.13977701250722108, 0.7660534675139034],
+          [0.9462615328819463, 0.8837566218453745],
+          [0.3043645843560052, 0.01564579636354957],
+          [0.49262461897820586, 0.20608162185021417],
+          [0.0971919986218216, 0.10089671309250703],
+          [0.8872593085285023, 0.03357627575428079],
+          [0.13566404870633653, 0.5977848967315527],
+          [0.4536437568888926, 0.7032862668649287],
+          [0.6704862188501712, 0.0486763212437491],
+          [0.7431401215231715, 0.7405410784798616],
+          [0.9459740857794321, 0.4022653508109063],
+          [0.41912675341472283, 0.23433927848756164],
+          [0.7422690147653158, 0.2172692101775534],
+          [0.15452290240983502, 0.8637302426700564],
+          [0.4148845274368069, 0.05644403502446094],
+          [0.0990216347105285, 0.5038958489409345],
+          [0.4893470377896145, 0.28926345135391884],
+          [0.4081158856977005, 0.8157862567633168],
+          [0.9515215253810595, 0.7315174831160183],
+          [0.032716286855046905, 0.318903696369192],
+          [0.3705299587344354, 0.5979176742772624],
+          [0.44338308606070165, 0.6725319014369137],
+          [0.950555169851427, 0.32066511539298315],
+          [0.8554501933059546, 0.30176443514420326]]
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
